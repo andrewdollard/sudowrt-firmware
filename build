@@ -69,7 +69,12 @@ if [[ "$existing_build" -eq 0 || "$reclone" -eq 1 ]]; then
   echo "Checking out OpenWRT into ${BUILD_DIR}, this could take some time"
 
   rm -rf "${OPENWRT_CHECKOUT_DIR}"
-  git clone "git://git.openwrt.org/${openwrt_path}/openwrt.git" "${OPENWRT_CHECKOUT_DIR}"
+  if [[ "${openwrt_path}" = "main" ]]; then
+    git clone "git://git.openwrt.org/openwrt.git" "${OPENWRT_CHECKOUT_DIR}"
+  else
+    git clone "git://git.openwrt.org/${openwrt_path}/openwrt.git" "${OPENWRT_CHECKOUT_DIR}"
+  fi
+
   cd "${OPENWRT_CHECKOUT_DIR}"
   git checkout "${openwrt_rev}"
   cd "${workdir}"
