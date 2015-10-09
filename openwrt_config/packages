@@ -7,6 +7,7 @@ kmod-lib-crc16
 kmod-l2tp
 kmod-l2tp-ip
 kmod-l2tp-eth
+kmod-ath10k
 wireless-tools
 ntpclient
 hostapd
