@@ -57,3 +57,4 @@ rpcd-mod-file
 netifd
 iperf
 libcurl
+procd-custom

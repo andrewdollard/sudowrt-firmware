@@ -1,4 +1,4 @@
-peopleswifi:src-git peopleswifi git://github.com/sudomesh/sudowrt-packages.git
+peopleswifi:src-git peopleswifi git://github.com/sudomesh/sudowrt-packages.git;custom-procd
 luci:src-git luci https://github.com/openwrt/luci.git
 oldpackages:src-git oldpackages git://git.openwrt.org/15.05/openwrt.git
 openwrt:src-git openwrt https://github.com/openwrt/packages;for-15.05
