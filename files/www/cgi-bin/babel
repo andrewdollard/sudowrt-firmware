@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# Get babeld routes
+RAW=$(babeld -i)
+# RAW=$(cat babeld_output)
+
+# Filter everything but incoming 100.64 routes
+NODES=$(echo "$RAW" | awk '/^100\.64/ { print $0 }' | grep -v exported)
+
+# br-open is a bridge for all peoplesopen.net open interfaces
+# which includes the ethernet interface
+NODES_ETH=$(echo "$NODES" | awk '/via br-open/ { print $1 }')
+
+# TODO count unique neighbors only
+
+
+NODES_VLAN1=$(echo "$NODES" | awk '/via eth0\.1/ { print $1 }')
+NODES_VLAN2=$(echo "$NODES" | awk '/via eth0\.2/ { print $1 }')
+NODES_VLAN3=$(echo "$NODES" | awk '/via eth0\.3/ { print $1 }')
+NODES_VLAN4=$(echo "$NODES" | awk '/via eth0\.4/ { print $1 }')
+
+#########
+# Counts
+#########
+
+# Total nodes on the network
+NODES_COUNT=$(echo -n "$NODES" | wc -l)
+
+ETH_COUNT=$(echo -n "$NODES_ETH" | wc -l)
+
+VLAN1_COUNT=$(echo -n "$NODES_VLAN1" | wc -l)
+if [ "$VLAN1_COUNT" -gt "0" ]; then
+  VLAN1_MESHED="true"
+else
+  VLAN1_MESHED="false"
+fi
+
+VLAN2_COUNT=$(echo -n "$NODES_VLAN2" | wc -l)
+if [ "$VLAN2_COUNT" -gt "0" ]; then
+  VLAN2_MESHED="true"
+else
+  VLAN2_MESHED="false"
+fi
+
+VLAN3_COUNT=$(echo -n "$NODES_VLAN3" | wc -l)
+if [ "$VLAN3_COUNT" -gt "0" ]; then
+  VLAN3_MESHED="true"
+else
+  VLAN3_MESHED="false"
+fi
+
+VLAN4_COUNT=$(echo -n "$NODES_VLAN4" | wc -l)
+if [ "$VLAN4_COUNT" -gt 0 ]; then
+  VLAN4_MESHED="true"
+else
+  VLAN4_MESHED="false"
+fi
+
+#########
+# JSON output
+#########
+
+JSON="{  
+  \"node_count\": $NODES_COUNT,
+  \"neighbors_2_4ghz_count\": $NEIGH_2_COUNT,
+  \"neighbors_5ghz_count\": $NEIGH_5_COUNT,
+  \"neighbors_ethernet_count\": $NEIGH_ETH_COUNT,
+  \"extender_nodes\": {
+    \"vlan1\": $VLAN1_MESHED,
+    \"vlan2\": $VLAN2_MESHED,
+    \"vlan3\": $VLAN3_MESHED,
+    \"vlan4\": $VLAN4_MESHED
+  }
+}"
+
+echo "Content-type: application/json"
+echo ""
+echo "$JSON"
