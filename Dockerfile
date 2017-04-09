@@ -25,9 +25,9 @@ RUN mkdir -p $FIRMWARE_DIR
 RUN mkdir -p /firmware_images
 
 RUN useradd builder
-USER builder
 
 WORKDIR $FIRMWARE_DIR
 COPY . $FIRMWARE_DIR
 RUN chown -hR builder $FIRMWARE_DIR
+USER builder
 ENTRYPOINT ["./entrypoint.sh"]
