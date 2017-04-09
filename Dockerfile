@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:14.04
 RUN apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get install -yq \
       git-core \
@@ -23,6 +23,7 @@ RUN useradd -ms /bin/bash builder
 ENV FIRMWARE_DIR /home/builder/sudowrt-firmware
 
 RUN mkdir -p $FIRMWARE_DIR
+RUN mkdir -p $FIRMWARE_DIR/built_firmware
 RUN mkdir -p /firmware_images
 
 WORKDIR $FIRMWARE_DIR
