@@ -24,7 +24,7 @@ ENV FIRMWARE_DIR /usr/local/sudowrt-firmware
 RUN mkdir -p $FIRMWARE_DIR
 RUN mkdir -p /firmware_images
 
-RUN useradd builder
+RUN useradd -ms /bin/bash builder
 
 WORKDIR $FIRMWARE_DIR
 COPY . $FIRMWARE_DIR
