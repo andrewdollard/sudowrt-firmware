@@ -7,7 +7,7 @@ if [ -z "$arch" ]
 then
   arch="ar71xx"
 fi
-time ./build $arch
+./build $arch
 
 echo $(ls ./built_firmware/builder.$arch/)
 cp -r $FIRMWARE_DIR/built_firmware/builder.$arch/bin /firmware_images

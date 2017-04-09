@@ -21,11 +21,13 @@ RUN apt-get clean
 
 ENV FIRMWARE_DIR /usr/local/sudowrt-firmware
 
+RUN mkdir -p $FIRMWARE_DIR
 RUN mkdir -p /firmware_images
-RUN useradd builder
-RUN usermod -aG sudo builder
+
+# RUN useradd builder
+# RUN chown -hR builder $FIRMWARE_DIR
+# USER builder
+
 WORKDIR $FIRMWARE_DIR
-RUN mkdir -p files/opt/sudowrt
 COPY . $FIRMWARE_DIR
-USER builder
 ENTRYPOINT ["./entrypoint.sh"]
