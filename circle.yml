@@ -1,3 +1,6 @@
+general:
+  artifacts:
+    - "/usr/local/sudowrt-firmware/built_firmware/builder.ar71xx/build.log"
 machine:
   timezone:
     America/Los_Angeles
