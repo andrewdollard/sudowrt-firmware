@@ -7,7 +7,8 @@ if [ -z "$arch" ]
 then
   arch="ar71xx"
 fi
-runuser -l builder -c 'time ./build $arch'
+time ./build $arch
 
 echo $(ls ./built_firmware/builder.$arch/)
+cp -r $FIRMWARE_DIR/built_firmware/builder.$arch/build.log /firmware_images
 cp -r $FIRMWARE_DIR/built_firmware/builder.$arch/bin /firmware_images

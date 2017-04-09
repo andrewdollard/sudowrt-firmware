@@ -12,5 +12,5 @@ dependencies:
     - docker build --rm=false -t sudomesh/sudowrt .
 test:
   override:
-    - docker run sudomesh/sudowrt ar71xx :
+    - docker run -v $CIRCLE_ARTIFACTS:/firmware_images sudomesh/sudowrt ar71xx :
         timeout: 10000
