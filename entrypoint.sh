@@ -1,10 +1,13 @@
 #!/bin/bash
 
-architecture=$1
-if [ -z "$architecture" ]
+echo $PWD
+echo $(ls)
+arch=$1
+if [ -z "$arch" ]
 then
-  architecture="ar71xx"
+  arch="ar71xx"
 fi
-time ./build $architecture
-mkdir -p ./firmware_images
-cp -r ./built_firmware/builder.ar71xx/bin/ar71xx/ /firmware_images
+time ./build $arch
+
+echo $(ls ./built_firmware/builder.$arch/)
+cp -r $FIRMWARE_DIR/built_firmware/builder.$arch/bin /firmware_images

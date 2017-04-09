@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+RUN apt-get update && \
+      DEBIAN_FRONTEND=noninteractive apt-get install -yq \
       git-core \
       libssl-dev \
       build-essential=11.6ubuntu6 \
@@ -20,6 +20,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq \
 RUN apt-get clean
 
 ENV FIRMWARE_DIR /usr/local/sudowrt-firmware
+
+RUN mkdir -p /firmware_images
+RUN useradd builder
+RUN usermod -aG sudo builder
 WORKDIR $FIRMWARE_DIR
+RUN mkdir -p files/opt/sudowrt
 COPY . $FIRMWARE_DIR
+USER builder
 ENTRYPOINT ["./entrypoint.sh"]
