@@ -24,10 +24,10 @@ ENV FIRMWARE_DIR /usr/local/sudowrt-firmware
 RUN mkdir -p $FIRMWARE_DIR
 RUN mkdir -p /firmware_images
 
-# RUN useradd builder
-# RUN chown -hR builder $FIRMWARE_DIR
-# USER builder
+RUN useradd builder
+USER builder
 
 WORKDIR $FIRMWARE_DIR
 COPY . $FIRMWARE_DIR
+RUN chown -hR builder $FIRMWARE_DIR
 ENTRYPOINT ["./entrypoint.sh"]
