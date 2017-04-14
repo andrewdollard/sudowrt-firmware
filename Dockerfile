@@ -19,7 +19,7 @@ RUN apt-get update && \
       wget=1.15-1ubuntu1.14.04.2
 RUN apt-get clean
 
-RUN useradd -ms /bin/bash builder
+# RUN useradd -ms /bin/bash builder
 ENV FIRMWARE_DIR /home/builder/sudowrt-firmware
 
 RUN mkdir -p $FIRMWARE_DIR
@@ -27,7 +27,8 @@ RUN mkdir -p $FIRMWARE_DIR/built_firmware
 RUN mkdir -p /firmware_images
 # RUN chown -hR builder $FIRMWARE_DIR/*
 
+# USER builder
 WORKDIR $FIRMWARE_DIR
 COPY . $FIRMWARE_DIR
-# USER builder
+
 ENTRYPOINT ["./entrypoint.sh"]
