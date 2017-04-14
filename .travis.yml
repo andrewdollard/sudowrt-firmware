@@ -9,4 +9,4 @@ before_install:
   - docker build -t sudomesh/sudowrt .
 
 script: 
-  - docker run sudomesh/sudowrt ar71xx
+  - travis_wait 120 docker run sudomesh/sudowrt ar71xx
