@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
-RUN apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+RUN apt-get update 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+      python-pip python-dev build-essential \
       build-essential=11.6ubuntu6 \
       subversion=1.8.8-1ubuntu3.2 \
       libncurses5-dev=5.9+20140118-1ubuntu1 \
@@ -21,6 +22,10 @@ RUN apt-get update && \
       python=2.7.5-5ubuntu3 \
       wget=1.15-1ubuntu1.14.04.2
 RUN apt-get clean
+
+RUN pip install --upgrade pip 
+RUN pip install --upgrade virtualenv
+RUN pip install awscli
 
 # RUN useradd -ms /bin/bash builder
 ENV FIRMWARE_DIR /home/builder/sudowrt-firmware
