@@ -2,4 +2,6 @@ demo:
   build:
     image: andrewdollard/sudowrt-firmware
     dockerfile: Dockerfile
+  environment:
+    CI_PLATFORM=codeship 
   encrypted_env_file: codeship-env.encrypted
