@@ -1,8 +1,6 @@
 FROM ubuntu:14.04
 RUN apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get install -yq \
-      git-core \
-      libssl-dev \
       build-essential=11.6ubuntu6 \
       subversion=1.8.8-1ubuntu3.2 \
       libncurses5-dev=5.9+20140118-1ubuntu1 \
@@ -13,6 +11,11 @@ RUN apt-get update && \
       gettext=0.18.3.1-1ubuntu3 \
       quilt=0.61-1 \
       ccache=3.1.9-1 \
+      git-core \
+      gettext=0.18.3.1-1ubuntu3 \
+      quilt=0.61-1 \
+      ccache=3.1.9-1 \
+      libssl-dev \
       xsltproc=1.1.28-2build1 \
       unzip=6.0-9ubuntu1.5 \
       python=2.7.5-5ubuntu3 \

@@ -21,13 +21,16 @@ config wifi-device 'radio0'
   # Greenfield enabled
   list ht_capab GF
 
+  # MIMO transmit support
+  list ht_capab TX-STBC
+
   # RX-STBC1 means MIMO receive support for one spatial stream
   # RX-STBC2 is for two streams, and so forth
   # This should match the number of receive antennas
-  list ht_capab RX-STBC1
+  list ht_capab RX-STBC2
 
 # the open wifi ap 
-config wifi-iface
+config wifi-iface open
   option device 'radio0'
   option ifname 'open0'
   option encryption 'none'
@@ -36,7 +39,7 @@ config wifi-iface
   option ssid 'peoplesopen.net (fast)'
 
 # the adhoc interface for the mesh
-config wifi-iface
+config wifi-iface mesh
   option device 'radio0'
   option ifname 'mesh0'
   option network 'mesh'
