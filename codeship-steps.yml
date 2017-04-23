@@ -1,0 +1,3 @@
+- name: sudowrt
+  service: demo
+  command: ar71xx

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo $PWD
-echo $(ls)
 arch=$1
 if [ -z "$arch" ]
 then

@@ -1,0 +1,4 @@
+demo:
+  build:
+    image: andrewdollard/sudowrt-firmware
+    dockerfile: Dockerfile
