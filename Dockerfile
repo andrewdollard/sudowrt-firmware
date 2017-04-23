@@ -27,13 +27,11 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade virtualenv
 RUN pip install awscli
 
-# RUN useradd -ms /bin/bash builder
 ENV FIRMWARE_DIR /home/builder/sudowrt-firmware
 
 RUN mkdir -p $FIRMWARE_DIR
 RUN mkdir -p $FIRMWARE_DIR/built_firmware
 RUN mkdir -p /firmware_images
-# RUN chown -HR builder $FIRMWARE_DIR/*
 
 # USER builder
 WORKDIR $FIRMWARE_DIR
