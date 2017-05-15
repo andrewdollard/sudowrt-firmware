@@ -1,30 +1,32 @@
-" Press ? for help
+#!/bin/bash
 
-.. (up a dir)
-/home/ubuntu/sudowrt-firmware/
-▸ built_firmware/
-▸ files/
-▸ files_extender-node/
-▸ firmware_images/
-▸ openwrt_config/
-▸ openwrt_patches/
-▾ scripts/
-    checkout_openwrt.sh*
-▸ sudo_watchdog/
-  build*
-  build.old*
-  build_all*
-  build_extender-node*
-  build_package*
-  circle.yml
-  codeship-env.encrypted
-  codeship-services.yml
-  codeship-steps.yml
-  Dockerfile
-  entrypoint.sh*
-  install_build_dependencies.sh*
-  LICENSE
-  prepare.old*
-  README.md
-  rebuild*
-  send_to_webserver*
+# Inject feeds and configurations
+echo "Configuring feeds"
+
+feedlines=()
+feed_file="${workdir}/openwrt_config/feeds"
+while read -r line
+do
+  feedlines=("${feedlines[@]}" "${line}")
+done < "$feed_file"
+
+feed_titles=()
+feed_sources=()
+for feedline in "${feedlines[@]}"; do
+  IFS=: read -a ARRAY <<< "${feedline}"
+  feed_title=${ARRAY[*]:0:1}
+  feed_titles=("${feed_titles[@]}" "${feed_title}")
+
+  SAVE_IFS=$IFS
+  IFS=":"
+  feed_source="${ARRAY[*]:1}"
+  IFS=$SAVE_IFS
+
+  feed_sources=("${feed_sources[@]}" "${feed_source}")
+done
+
+cat /dev/null > "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
+for feed_source in "${feed_sources[@]}"; do
+  echo "${feed_source}"  >> "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
+done
+

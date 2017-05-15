@@ -35,9 +35,12 @@ RUN mkdir -p /firmware_images
 
 # USER builder
 WORKDIR $FIRMWARE_DIR
+COPY scripts/checkout_openwrt.sh scripts/checkout_openwrt.sh
+RUN scripts/checkout_openwrt.sh
+COPY scripts/feeds.sh scripts/feeds.sh
+RUN scripts/feeds.sh
+
 COPY . $FIRMWARE_DIR
 
-RUN scripts/checkout_openwrt.sh
-RUN scripts/feeds.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
