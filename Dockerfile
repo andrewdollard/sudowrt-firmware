@@ -37,4 +37,7 @@ RUN mkdir -p /firmware_images
 WORKDIR $FIRMWARE_DIR
 COPY . $FIRMWARE_DIR
 
+RUN scripts/checkout_openwrt.sh
+RUN scripts/feeds.sh
+
 ENTRYPOINT ["./entrypoint.sh"]
