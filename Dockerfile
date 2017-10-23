@@ -1,5 +1,9 @@
 FROM ubuntu:14.04
+
+ADD sources.list .
+RUN cat sources.list >> /etc/apt/sources.list
 RUN apt-get update 
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq \
       python-pip python-dev build-essential \
       build-essential=11.6ubuntu6 \
