@@ -29,27 +29,28 @@ if [ ! -d $OPENWRT_CHECKOUT_DIR ]; then
 fi
 (cd $OPENWRT_CHECKOUT_DIR && git checkout $OPENWRT_REV)
 
-
-feedlines=()
+cat /dev/null > "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
 while read -r line
 do
-  feedlines+=($line)
-done < "${WORK_DIR}/feeds"
-
-feed_titles=()
-feed_sources=()
-for feedline in "${feedlines[@]}"; do
-  IFS=: read -a ARRAY <<< "${feedline}"
+  IFS=: read -a ARRAY <<< "${line}"
   feed_title=${ARRAY[*]:0:1}
-  # feed_titles+=($feed_title)
-  feed_titles=("${feed_titles[@]}" "${feed_title}")
 
   SAVE_IFS=$IFS
   IFS=":"
   feed_source="${ARRAY[*]:1}"
   IFS=$SAVE_IFS
 
-  feed_sources=("${feed_sources[@]}" "${feed_source}")
-done
-echo ${feed_titles[*]}
-echo ${feed_sources[*]}
+  echo "${feed_source}"  >> "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
+done < "${WORK_DIR}/feeds"
+
+echo "Applying patches for OpenWRT base tree..."
+cd "${OPENWRT_CHECKOUT_DIR}"
+if [ ! -h "patches" ] ; then
+  ln -s "../../openwrt_patches" patches
+fi
+if [ ! -f "patches/series" ] ; then
+  quilt import patches/*
+fi
+
+quilt push -f -a -q || [ $? -eq 2 ] #quilt returns a 2 if there is nothing more to do
+

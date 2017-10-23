@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-set -x
+# set -x
 
 # peopleswifi firmware prepare script
 # based on wlanslovenija prepare script
@@ -120,12 +120,12 @@ for feedline in "${feedlines[@]}"; do
 
   feed_sources=("${feed_sources[@]}" "${feed_source}")
 done
-exit 0
 
 cat /dev/null > "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
 for feed_source in "${feed_sources[@]}"; do
   echo "${feed_source}"  >> "${OPENWRT_CHECKOUT_DIR}/feeds.conf"
 done
+
 
 echo "Applying patches for OpenWRT base tree..."
 cd "${OPENWRT_CHECKOUT_DIR}"
@@ -137,6 +137,8 @@ if [ ! -f "patches/series" ] ; then
 fi
 
 quilt push -f -a -q || [ $? -eq 2 ] #quilt returns a 2 if there is nothing more to do
+
+exit 0
 
 cd "${OPENWRT_CHECKOUT_DIR}"
 
