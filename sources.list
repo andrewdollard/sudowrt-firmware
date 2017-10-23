@@ -1,0 +1,7 @@
+# Required
+deb http://old-releases.ubuntu.com/ubuntu/ karmic main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ karmic-updates main restricted universe multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ karmic-security main restricted universe multiverse
+
+# Optional
+#deb http://old-releases.ubuntu.com/ubuntu/ karmic-backports main restricted universe multiverse
