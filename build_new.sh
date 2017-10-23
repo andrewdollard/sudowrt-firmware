@@ -8,10 +8,12 @@ WORK_DIR=openwrt_config
 
 if [ -z $ARCHITECTURE ]; then 
   echo "Please provide an architecture"
+  exit 1
 fi
 
 if [ ! -d $WORK_DIR ]; then
   echo "Invalid working directory"
+  exit 1
 fi
 
 REVISION=$(git log --pretty=format:'%H' -n1)
